@@ -1,0 +1,42 @@
+type Query {
+  hello: String,
+  articles(search: SearchInput):[Article],
+  users(limit: Int): [User],
+  article(id: ID!): Article,
+  user(id: ID!): User
+}
+
+type Article {
+  id: ID!,
+  title: String,
+  body: String
+  author: [User],
+  isPublished: Boolean
+}
+
+input SearchInput {
+  text: String,
+  published: Boolean
+}
+
+type User {
+  id: ID!,
+  name: String,
+  email: String,
+  isEmployed: Boolean, 
+  age: Int,
+  articles(search: SearchInput): [Article!]!
+}
+
+input UserInput {
+  name: String
+  email: String
+  age: Int
+  isEmployed: Boolean
+}
+
+type Mutation {
+  createUser(user: UserInput!): User
+  updateUser(id: ID!, userUpdate: UserInput!): User
+  publishArticle(id: ID): Article
+}
